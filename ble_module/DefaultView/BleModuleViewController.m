@@ -14,8 +14,7 @@
 
 @implementation BleModuleViewController
 #pragma mark - Public Variable Initializer
-- (NSArray *)uuidList
-{
+- (NSArray *)uuidList {
     if (!_uuidList ) {
         _uuidList = [[NSArray alloc] initWithObjects:
                      UUID_ILOCATE_1
@@ -28,15 +27,13 @@
     return _uuidList;
 }
 
-- (UIAlertController *)uuidAlert
-{
-    if (!_uuidAlert ) {
+- (UIAlertController *)uuidAlert {
+    if (!_uuidAlert) {
         _uuidAlert = [UIAlertController alertControllerWithTitle:@"안내"
                                                          message:@"UUID를 선택해주세요"
                                                   preferredStyle:(UIAlertControllerStyleActionSheet)];
         
-        for ( NSString * uuidString in self.uuidList ) {
-        
+        for (NSString * uuidString in self.uuidList) {
             UIAlertAction * uuidActionItem = [UIAlertAction actionWithTitle:uuidString
                                                              style:(UIAlertActionStyleDefault)
                                                            handler:^(UIAlertAction * _Nonnull action) {
@@ -65,17 +62,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (NSString *)getDateTime{
+- (NSString *)getDateTime {
     NSDate * date = [NSDate date];
     NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
 //    NSLog(@"getDateTime: %@", date);
@@ -86,8 +73,7 @@
 }
 
 
-- (IBAction)backPress:(UIButton *)sender
-{
+- (IBAction)backPress:(UIButton *)sender {
     [[self navigationController]popViewControllerAnimated:YES];
 }
 

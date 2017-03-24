@@ -15,7 +15,7 @@
 
 @protocol ChildModuleDelegate <NSObject>
 
-- (void) setUUIDtoLabel:(NSString *)uuidString ;
+- (void) setUUIDtoLabel:(NSString *)uuidString;
 
 @end
 
@@ -26,6 +26,6 @@
 @property (nonatomic) id<ChildModuleDelegate> childDelegate;
 
 - (IBAction)backPress:(UIButton *)sender;
-- (IBAction)selectUUID:(id)sender ;
+- (IBAction)selectUUID:(id)sender;
 - (NSString *)getDateTime;
 @end

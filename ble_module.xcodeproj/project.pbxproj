@@ -130,6 +130,8 @@
 		50CB7BEA1C251218001524A1 /* ble_module */ = {
 			isa = PBXGroup;
 			children = (
+				50CB7C301C252D3C001524A1 /* BleModuleViewController.h */,
+				50CB7C311C252D3C001524A1 /* BleModuleViewController.m */,
 				50CB7C1F1C251A64001524A1 /* Peripheral */,
 				50CB7C1E1C251A5D001524A1 /* Central */,
 				50CB7BEE1C251218001524A1 /* AppDelegate.h */,
@@ -141,8 +143,6 @@
 				50CB7BF91C251218001524A1 /* LaunchScreen.storyboard */,
 				50CB7BFC1C251218001524A1 /* Info.plist */,
 				50CB7BEB1C251218001524A1 /* Supporting Files */,
-				50CB7C301C252D3C001524A1 /* BleModuleViewController.h */,
-				50CB7C311C252D3C001524A1 /* BleModuleViewController.m */,
 			);
 			path = ble_module;
 			sourceTree = "<group>";

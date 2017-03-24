@@ -9,13 +9,13 @@
 #import "TransmitViewController.h"
 #import "TransmitTableviewCell.h"
 #import "TransmitData.h"
+
 @interface TransmitViewController ()
+
 @property (strong, nonatomic) IBOutlet UILabel *proximityUUIDLabel;
 @property (strong, nonatomic) IBOutlet UILabel *majorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *accurancyLabel;
-
-
 @property (strong, nonatomic) IBOutlet UITextField *uuidString_field;
 @property (strong, nonatomic) IBOutlet UITextField *major_field;
 @property (strong, nonatomic) IBOutlet UITextField *minor_field;
@@ -28,8 +28,7 @@
 
 @implementation TransmitViewController
 
-- (NSMutableArray *)transmitList
-{
+- (NSMutableArray *)transmitList {
     if ( !_transmitList ) {
         _transmitList = [[NSMutableArray alloc]init];
     }
@@ -40,7 +39,6 @@
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 //    [self initBeacon];
 //    [self setLabel];
 
@@ -49,8 +47,7 @@
     self.indexCount = 0;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     self.beaconPeripheralData = nil;
     self.beaconRegion = nil;
@@ -61,9 +58,8 @@
 }
 
 #pragma mark - Child Delegate Method
-- (void)setUUIDtoLabel:(NSString *)uuidString
-{
-    if ( [uuidString isEqualToString:UUID_ILOCATE_ETC] ) {
+- (void)setUUIDtoLabel:(NSString *)uuidString {
+    if ([uuidString isEqualToString:UUID_ILOCATE_ETC]) {
         [self.uuidString_field setEnabled:YES];
         [self.uuidString_field becomeFirstResponder];
         [self.uuidString_field setText:@""];
@@ -81,6 +77,7 @@
                                                                      queue:nil
                                                                    options:nil];
 }
+
 - (IBAction)doApply:(id)sender {
     
     // Check UUID
@@ -114,20 +111,16 @@
         return;
     }
     
-    
     [self initBeacon];
 }
 - (IBAction)doStop:(id)sender {
-    
     if(!self.peripheralManager) {
-        
         return;
     }
     
     [self.peripheralManager stopAdvertising];
 }
 - (IBAction)doStart:(id)sender {
-    
     // Check Apply
     if ( !self.isReady ) {
         UIAlertController * startAlert = [UIAlertController alertControllerWithTitle:@"안내" message:@"Need to [Apply]" preferredStyle:(UIAlertControllerStyleAlert)];
@@ -145,9 +138,7 @@
 }
 
 #pragma mark - Beacon Method
-- (void)initBeacon
-{
-//    NSUUID * uuid = [[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"];
+- (void)initBeacon {
     NSUUID * uuid = [[NSUUID alloc]initWithUUIDString:self.uuidString_field.text];
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
                                                                 major:self.major_field.text.intValue
@@ -156,8 +147,7 @@
     self.isReady = YES;
 }
 
-- (void)AddTransmitData
-{
+- (void)AddTransmitData {
     TransmitData * data = [[TransmitData alloc]init];
     
     data.uuidString = [NSString stringWithFormat:@"%@", self.uuidString_field.text];
@@ -165,7 +155,7 @@
     data.minor = [NSString stringWithFormat:@"%@", self.minor_field.text];
     data.datetime = [self getDateTime];
  
-    data.index = [NSString stringWithFormat:@"%d", self.indexCount];
+    data.index = [NSString stringWithFormat:@"%ld", (long)self.indexCount];
     
     [self.transmitList addObject:data];
     self.indexCount++;
@@ -173,8 +163,7 @@
     [self.transmitTableView reloadData];
 }
 
-- (void)setLabel
-{
+- (void)setLabel {
     [self.proximityUUIDLabel setText:self.beaconRegion.proximityUUID.UUIDString];
     [self.majorLabel setText:[NSString stringWithFormat:@"%@", self.beaconRegion.major]];
     [self.minorLabel setText:[NSString stringWithFormat:@"%@", self.beaconRegion.minor]];
@@ -182,34 +171,27 @@
 }
 
 #pragma mark - Peripheral Mnager Method
-- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
-{
-    if ( peripheral.state == CBPeripheralManagerStatePoweredOn )
-    {
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
+    if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
         NSLog(@"Power On");
         [self.peripheralManager startAdvertising:self.beaconPeripheralData];
         [self AddTransmitData];
-    }
-    else if (peripheral.state == CBPeripheralManagerStatePoweredOff ) {
+    } else if (peripheral.state == CBPeripheralManagerStatePoweredOff) {
         NSLog(@"Power Off");
         [self.peripheralManager stopAdvertising];
     }
 }
 
--(void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error
-{
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error {
     NSLog(@"Did Start Advertising");
 }
 
-
 #pragma mark - Table View Delegate Method
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.transmitList.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * cellId = @"transmitCell";
     TransmitTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {

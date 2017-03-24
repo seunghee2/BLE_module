@@ -20,8 +20,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setWithTransmitData:(TransmitData *)transmitData
-{
+- (void)setWithTransmitData:(TransmitData *)transmitData {
     [self.indexLabel setText:transmitData.index];
     [self.datetimeLabel setText:transmitData.datetime];
     [self.uuidLabel setText:transmitData.uuidString];

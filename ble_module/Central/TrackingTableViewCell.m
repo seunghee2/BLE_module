@@ -20,8 +20,7 @@
     // Configure the view for the selected state
 }
 
--(void)setWithDetectedData:(DetectedData *)detectedData
-{
+-(void)setWithDetectedData:(DetectedData *)detectedData {
     if (!detectedData) {
         return;
     }

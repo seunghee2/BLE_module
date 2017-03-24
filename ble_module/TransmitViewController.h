@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreLocation/CoreLocation.h>
-
 #import "BleModuleViewController.h"
 
 @interface TransmitViewController : BleModuleViewController <CLLocationManagerDelegate, CBPeripheralManagerDelegate, ChildModuleDelegate, UITableViewDataSource, UITableViewDelegate>
